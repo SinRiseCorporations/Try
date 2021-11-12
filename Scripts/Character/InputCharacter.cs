@@ -19,8 +19,24 @@ public class InputCharacter : MonoBehaviour
 
     void PCInput()
     {
+        InputMovement();
+        InputActionEvent();
+    }
+
+    void InputMovement()
+    {
         moveCharacter.vertical = Input.GetAxis("Vertical");
         moveCharacter.horizontal = Input.GetAxis("Horizontal");
+    }
+
+    void InputActionEvent()
+    {
+        if(Input.GetKeyDown(KeyCode.F))
+        {
+            actionEvent = true;
+            Debug.Log("EventWork");
+        }
+        else actionEvent = false;
     }
 
     void MobileInput()
