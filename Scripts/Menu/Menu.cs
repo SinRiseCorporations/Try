@@ -7,6 +7,7 @@ using TMPro;
 
 public class Menu : MonoBehaviour
 {   
+    #region  Раздел с языком
     [Header("Переводчик")]
     [Space(10)]
     public Translator translator_menu;
@@ -15,22 +16,33 @@ public class Menu : MonoBehaviour
     [Space(10)]
     [Header("Количество Языков в игре.")]
     public int All_language;
-    [Space(10)]
+    #endregion
+
+    #region Раздел с игровыми объектами меню
     [Header("Игровые объекты.")]
+    [Space(10)]
     public GameObject menu;
     public GameObject setting;
     public GameObject Error;
     public GameObject languageSetting;
     public GameObject soundSetting;
     public GameObject qualitySetting;
+    public GameObject singlePlayMenu;
 
+    #endregion
+
+    #region Раздел с настройками звука
     [Space(10)]
     public AudioSource audioSource;
     public Slider sliderSoundSystem;
     public float lvl_sound_system;
     public TextMeshProUGUI text_sound_system;
-    [Space(20)]
+
+    #endregion
+
+    #region Раздел с настройками графики
     [Header("Переменные для настройки граффики")]
+    [Space(20)]
     int valueSlider;
     [Space(20)]
     [Header("Разрешения")]
@@ -64,6 +76,27 @@ public class Menu : MonoBehaviour
     public Slider sliderRangeShadow;
     public TextMeshProUGUI textRangShadow;
 
+    #endregion
+
+    #region Раздел с настройками Меню игры в одиночку
+
+    [Header("Настройки меню одиночной игры")]
+    [Space(20)]
+    public int gameProgress;
+
+    public int partGame;
+
+    public Image nowImage;
+    public Image changeImage;
+    public Image leaImage;
+
+    public Sprite[] spritePatrGame;
+
+    public Animator partAnim;
+    public bool nowChange;
+
+    #endregion
+
     private void Start() {
 
         #region Обработка запуска меню игры
@@ -73,6 +106,7 @@ public class Menu : MonoBehaviour
         languageSetting.SetActive(false);
         soundSetting.SetActive(false);
         qualitySetting.SetActive(false);
+        singlePlayMenu.SetActive(false);
         #endregion
 
         #region Проверка первоночального языка на устройстве а также его сохранение.
@@ -180,6 +214,16 @@ public class Menu : MonoBehaviour
         sliderRangeShadow.value = valueRangeShadow;
 
         QualitySettings.shadowDistance = valueRangeShadow;
+        #endregion
+
+        #region Загрузка последней пройденной главы
+
+        if(PlayerPrefs.HasKey("GameProgress") == false) PlayerPrefs.SetInt("GameProgress", gameProgress = 0);
+        gameProgress = PlayerPrefs.GetInt("GameProgress");
+        partGame = gameProgress;
+
+        leaImage.sprite = spritePatrGame[gameProgress];
+
         #endregion
     }
 
@@ -339,12 +383,19 @@ public class Menu : MonoBehaviour
         textRangShadow.text = valueRangeShadow.ToString();
 
         #endregion
+
+        #region  Отоброжение выбранной главы
+
+        partGame = Mathf.Clamp(partGame,0,spritePatrGame.Length - 1);
+
+        #endregion
     }
 
     public void Play() 
     {
         SceneManager.LoadScene(1);
     }
+
 
     public void OpenSetting()
     {
@@ -493,4 +544,35 @@ public class Menu : MonoBehaviour
         QualitySettings.shadowDistance = valueRangeShadow;
         PlayerPrefs.SetInt("ShadowRange",valueRangeShadow);
     }
+
+    public void OpenSingleGameMenu()
+    {
+        menu.SetActive(false);
+        singlePlayMenu.SetActive(true);
+    }
+
+    public void ClosetSingleGameMenu()
+    {
+        menu.SetActive(true);
+        singlePlayMenu.SetActive(false);
+    }
+
+
+    public void ChangePart(string turn)
+    {
+        if(turn =="next")
+        {
+            if(partGame != spritePatrGame.Length -1)
+            {
+            nowChange = true;
+
+            partGame = partGame + 1;
+            
+
+            partAnim.SetTrigger("partForward");
+            }
+        }
+    }
+
+
 }
