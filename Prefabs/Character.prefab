@@ -2230,9 +2230,10 @@ GameObject:
   - component: {fileID: 5833940133196401196}
   - component: {fileID: 5833940133196401197}
   - component: {fileID: 5833940133196401198}
+  - component: {fileID: 1985171590}
   m_Layer: 0
   m_Name: Character
-  m_TagString: Untagged
+  m_TagString: Character
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -2331,6 +2332,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   moveCharacter: {fileID: 5833940133196401197}
   setting: {fileID: 11400000, guid: 9642c33f266fe65489c4341e86fe4482, type: 2}
+  actionEvent: 0
   joystick: {fileID: 0}
 --- !u!114 &5833940133196401197
 MonoBehaviour:
@@ -2366,6 +2368,19 @@ MonoBehaviour:
   inputCharacter: {fileID: 5833940133196401196}
   moveCharacter: {fileID: 5833940133196401197}
   animationCharacter: {fileID: 5833940133196401187}
+--- !u!65 &1985171590
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5833940133821611509}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 1, y: 1.6, z: 1}
+  m_Center: {x: 0, y: 0.87, z: 0.39}
 --- !u!1 &5833940133821611511
 GameObject:
   m_ObjectHideFlags: 0

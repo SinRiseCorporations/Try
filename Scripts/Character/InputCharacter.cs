@@ -10,6 +10,10 @@ public class InputCharacter : MonoBehaviour
 
     public bool actionEvent;
     [SerializeField] private DynamicJoystick joystick;
+
+    private int pauseMode;
+
+    private float t;
     public void InputUpdate()
     {
         if(!setting.android) PCInput();
@@ -21,6 +25,7 @@ public class InputCharacter : MonoBehaviour
     {
         InputMovement();
         InputActionEvent();
+        PauseModePC();
     }
 
     void InputMovement()
@@ -39,9 +44,47 @@ public class InputCharacter : MonoBehaviour
         else actionEvent = false;
     }
 
+    void PauseModePC()
+    {
+        if(Input.GetKeyDown(KeyCode.Escape) && pauseMode == 0){
+            Time.timeScale = 1;
+            pauseMode += 1;
+        }
+        else if ((Input.GetKeyDown(KeyCode.Escape) && pauseMode != 0))
+        {
+            Time.timeScale = 0;
+            pauseMode -= 1;
+        }
+        
+    }
+
     void MobileInput()
+    {
+        InputMovementMobile();
+        InputActionEventMobile();
+    }
+
+    void InputMovementMobile()
     {
         moveCharacter.vertical = joystick.Vertical * 1.5f;
         moveCharacter.horizontal = joystick.Horizontal * 1.5f;
+    }
+
+    void InputActionEventMobile()
+    {
+        if(actionEvent)
+        {
+            Debug.Log("Work");
+            t += Time.deltaTime;
+            if(t > 0.3)
+            {
+                actionEvent = false;
+            }
+        }
+    }
+
+    public void TachActionBatton()
+    {
+        actionEvent = true;
     }
 }
