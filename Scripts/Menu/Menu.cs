@@ -95,6 +95,8 @@ public class Menu : MonoBehaviour
     public Animator partAnim;
     public bool nowChange;
 
+    public Translation_text_ID textPart;
+
     #endregion
 
     private void Start() {
@@ -388,12 +390,51 @@ public class Menu : MonoBehaviour
 
         partGame = Mathf.Clamp(partGame,0,spritePatrGame.Length - 1);
 
+        switch(partGame)
+        {
+            case 0: 
+
+                textPart.ID_Text = 29;
+                Translator.Update_texts();
+                break;
+
+            case 1: 
+
+                textPart.ID_Text = 30;
+                Translator.Update_texts();
+                break;
+
+            case 2: 
+
+                textPart.ID_Text = 31;
+                Translator.Update_texts();
+                break;
+
+            case 3: 
+
+                textPart.ID_Text = 32;
+                Translator.Update_texts();
+                break;
+
+            case 4: 
+
+                textPart.ID_Text = 33;
+                Translator.Update_texts();
+                break;
+            
+            case 5: 
+
+                textPart.ID_Text = 34;
+                Translator.Update_texts();
+                break;
+        }
+
         #endregion
     }
 
     public void Play() 
     {
-        SceneManager.LoadScene(1);
+        SceneManager.LoadScene(partGame + 1);
     }
 
 
@@ -560,17 +601,32 @@ public class Menu : MonoBehaviour
 
     public void ChangePart(string turn)
     {
+        if(nowChange != true)
+        {
         if(turn =="next")
         {
             if(partGame != spritePatrGame.Length -1)
             {
-            nowChange = true;
+                nowChange = true;
 
-            partGame = partGame + 1;
+                partGame = partGame + 1;
             
 
-            partAnim.SetTrigger("partForward");
+                partAnim.SetTrigger("partForward");
             }
+        }
+
+        if(turn == "back")
+        {
+            if(partGame != 0)
+            {
+                nowChange = true;
+
+                partGame = partGame - 1;
+
+                partAnim.SetTrigger("partBack");
+            }
+        }
         }
     }
 

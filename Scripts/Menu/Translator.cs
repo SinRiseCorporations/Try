@@ -42,6 +42,15 @@ public class Translator : MonoBehaviour
         "2X",//24
         "4X",//25
         "8X",//26
+        "Next",//27
+        "Precious",//28
+        "Chapter 1",//29
+        "Chapter 2",//30
+        "Chapter 3",//31
+        "Chapter 4",//32
+        "Chapter 5",//33
+        "Chapter 6",//34
+        "Play",//35
         },
         #endregion
 
@@ -74,6 +83,15 @@ public class Translator : MonoBehaviour
         "2X",//24
         "4X",//25
         "8X",//26
+        "Следующая",//27
+        "Предыдущая",//28
+        "Глава 1", //29
+        "Глава 2", //30
+        "Глава 3", //31
+        "Глава 4", //32
+        "Глава 5", //33
+        "Глава 6", //34
+        "Играть",//35
         }
         #endregion
     };

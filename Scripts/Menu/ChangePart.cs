@@ -26,4 +26,14 @@ public class ChangePart : MonoBehaviour
     {
         menu.leaImage.sprite = menu.spritePatrGame[menu.partGame];
     }
+
+    public void ChangePartBack()
+    {
+        menu.nowImage.sprite = menu.spritePatrGame[menu.partGame];
+    }
+
+    public void ChangeLastPart ()
+    {
+        menu.changeImage.sprite = menu.spritePatrGame[menu.partGame + 1];
+    }
 }
