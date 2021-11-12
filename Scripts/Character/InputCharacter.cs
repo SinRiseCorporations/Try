@@ -7,6 +7,8 @@ public class InputCharacter : MonoBehaviour
     public MoveCharacter moveCharacter;
 
     public SettingGame setting;
+
+    public bool actionEvent;
     [SerializeField] private DynamicJoystick joystick;
     public void InputUpdate()
     {
