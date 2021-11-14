@@ -14,18 +14,31 @@ public class InputCharacter : MonoBehaviour
     private int pauseMode;
 
     private float t;
+
     public void InputUpdate()
     {
         if(!setting.android) PCInput();
-        else MobileInput();
+        else MobileInputUpdate();
         
     }
 
+    public void FixedUpdate()
+    {
+        if(!setting.android) PCFixedUpdate();
+        else InputMobileFixedUpdate();
+    }
+
+    #region  PCInput
     void PCInput()
     {
         InputMovement();
         InputActionEvent();
         PauseModePC();
+    }
+
+    void PCFixedUpdate()
+    {
+
     }
 
     void InputMovement()
@@ -58,9 +71,18 @@ public class InputCharacter : MonoBehaviour
         
     }
 
-    void MobileInput()
+    #endregion
+
+
+    #region MobileInput
+    void MobileInputUpdate()
     {
         InputMovementMobile();
+        //InputActionEventMobile();
+    }
+
+    void InputMobileFixedUpdate()
+    {
         InputActionEventMobile();
     }
 
@@ -74,12 +96,8 @@ public class InputCharacter : MonoBehaviour
     {
         if(actionEvent)
         {
-            Debug.Log("Work");
-            t += Time.deltaTime;
-            if(t > 0.3)
-            {
-                actionEvent = false;
-            }
+            Debug.Log("EventWork");
+            actionEvent = false;
         }
     }
 
@@ -87,4 +105,7 @@ public class InputCharacter : MonoBehaviour
     {
         actionEvent = true;
     }
+
+    #endregion
+
 }
