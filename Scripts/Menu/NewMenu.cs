@@ -15,6 +15,8 @@ public class NewMenu : MonoBehaviour
     public GameObject setting;
     bool settingActive;
 
+    public GameObject loading;
+
     public settngOptions settingMenu;
     [System.Serializable]
     public class settngOptions
@@ -47,7 +49,6 @@ public class NewMenu : MonoBehaviour
         if(PlayerPrefs.HasKey("ProgressGame") == false) 
         {
             PlayerPrefs.SetInt("ProgressGame",0);
-            contineBatton.SetActive(false);
         }
         else contineBatton.SetActive(true);
         progressGame = PlayerPrefs.GetInt("ProgressGame");
@@ -60,6 +61,9 @@ public class NewMenu : MonoBehaviour
     {
         menu.SetActive(true);
 
+        if(progressGame == 0) contineBatton.SetActive(false);
+        else contineBatton.SetActive(true);
+
         askReset.SetActive(false);
         askResetActive = false;
 
@@ -69,7 +73,7 @@ public class NewMenu : MonoBehaviour
         settingMenu.SoundSetting.SetActive(false);
         settingMenu.soundSettinActive = false;
         
-        
+        loading.SetActive(false);
     }
 
     
@@ -81,6 +85,7 @@ public class NewMenu : MonoBehaviour
     public void Play()
     {
         SoundTachPlay();
+        loading.SetActive(true);
         SceneManager.LoadScene(chapter);
     }
 

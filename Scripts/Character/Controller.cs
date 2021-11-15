@@ -5,11 +5,15 @@ using UnityEngine;
 public class Controller : MonoBehaviour
 {
 
-    public InputCharacter inputCharacter;
-    public MoveCharacter moveCharacter;
-    public AnimationCharacter animationCharacter;
+    private InputCharacter inputCharacter;
+    private MoveCharacter moveCharacter;
+    private AnimationCharacter animationCharacter;
      
-
+    private void Start() {
+        inputCharacter = gameObject.GetComponent<InputCharacter>();
+        moveCharacter = gameObject.GetComponent<MoveCharacter>();
+        animationCharacter = gameObject.GetComponent<AnimationCharacter>();
+    }
     void Update()
     {
         inputCharacter.InputUpdate();

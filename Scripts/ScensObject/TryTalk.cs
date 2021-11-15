@@ -20,11 +20,12 @@ public class TryTalk : MonoBehaviour
 
 
     private void OnTriggerExit(Collider other) {
-        
+         if(other.tag == "Character")
+        {
             state = null;
             state.subtibleText = null;
             state.timeClearSubtibleText = 0;
-        
+        }
     }
 
 

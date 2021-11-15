@@ -5,11 +5,11 @@ using UnityEngine;
 public class CameraConfigurations : MonoBehaviour
 {
     
-    [Header("Setting for camera")]
+    [Header("Настройки камеры")]
     [Space(10)]
     public SettingOptionsCamera setting;
 
-    [Header("GameObject of camera")]
+    [Header("Игровые объекты камеры согласно их названия")]
     [Space(10)]
     public Transform cameraHolder;
     public Transform cameraPivot;
@@ -17,7 +17,7 @@ public class CameraConfigurations : MonoBehaviour
     public Transform cameraCharacter;
     
 
-    [Header("GameObject of Character")]
+    [Header("игровой объект персонажа")]
     [Space(10)]
     public Transform characterTransform;
     

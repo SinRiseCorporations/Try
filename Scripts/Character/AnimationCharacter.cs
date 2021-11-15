@@ -5,9 +5,14 @@ using UnityEngine;
 public class AnimationCharacter : MonoBehaviour
 {
     
-    public Animator animator;
-    public MoveCharacter moveCharacter;
+    private Animator animator;
+    private MoveCharacter moveCharacter;
     
+    private void Start() {
+        animator = gameObject.GetComponent<Animator>();
+        moveCharacter = gameObject.GetComponent<MoveCharacter>();
+    }
+
     public void AnimatorUpdate()
     {
         animator.SetFloat("Movement",moveCharacter.moveAmount,0.15f, Time.deltaTime);

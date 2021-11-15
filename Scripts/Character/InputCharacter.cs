@@ -4,22 +4,34 @@ using UnityEngine;
 
 public class InputCharacter : MonoBehaviour
 {
-    public MoveCharacter moveCharacter;
-
+    private MoveCharacter moveCharacter;
+    private StaticCharacter staticCharacter;
+    [Header("Настройки меню , указать из папки скриптов")]
     public SettingGame setting;
-
+    [HideInInspector]
     public bool actionEvent;
-    [SerializeField] private DynamicJoystick joystick;
+    
+    //[SerializeField] private DynamicJoystick joystick;
 
-    private int pauseMode;
+    [HideInInspector]
+    public int pauseID;
 
     private float t;
 
+    private void Awake() {
+        moveCharacter = gameObject.GetComponent<MoveCharacter>();
+        staticCharacter = gameObject.GetComponent<StaticCharacter>();
+    }
+
     public void InputUpdate()
     {
-        if(!setting.android) PCInput();
-        else MobileInputUpdate();
-        
+        if(!staticCharacter.changeLocal.changeLocations){
+            if(!setting.android) PCInput();
+            else MobileInputUpdate();
+
+            pauseID = Mathf.Clamp(pauseID,0,1);
+
+        }
     }
 
     public void FixedUpdate()
@@ -59,14 +71,12 @@ public class InputCharacter : MonoBehaviour
 
     void PauseModePC()
     {
-        if(Input.GetKeyDown(KeyCode.Escape) && pauseMode == 0){
-            Time.timeScale = 1;
-            pauseMode += 1;
+        if(Input.GetKeyDown(KeyCode.Escape) && pauseID == 0){
+            pauseID += 1;
         }
-        else if ((Input.GetKeyDown(KeyCode.Escape) && pauseMode != 0))
+        else if ((Input.GetKeyDown(KeyCode.Escape) && pauseID != 0))
         {
-            Time.timeScale = 0;
-            pauseMode -= 1;
+            pauseID -= 1;
         }
         
     }
@@ -88,8 +98,8 @@ public class InputCharacter : MonoBehaviour
 
     void InputMovementMobile()
     {
-        moveCharacter.vertical = joystick.Vertical * 1.5f;
-        moveCharacter.horizontal = joystick.Horizontal * 1.5f;
+        moveCharacter.vertical = staticCharacter.canvas.joystick.Vertical * 1.5f;
+        moveCharacter.horizontal = staticCharacter.canvas.joystick.Horizontal * 1.5f;
     }
 
     void InputActionEventMobile()
@@ -104,6 +114,16 @@ public class InputCharacter : MonoBehaviour
     public void TachActionBatton()
     {
         actionEvent = true;
+    }
+
+    public void PauseMobileInput()
+    {
+        pauseID += 1;
+    }
+
+    public void ClosetPauseWindow()
+    {
+        pauseID -= 1;
     }
 
     #endregion

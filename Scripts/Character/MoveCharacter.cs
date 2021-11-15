@@ -4,17 +4,29 @@ using UnityEngine;
 
 public class MoveCharacter : MonoBehaviour
 {
-
+    [Header("Трансформ камеры (Указать)")]
     public Transform CameraTransform;
     [HideInInspector] public float vertical;
     [HideInInspector] public float horizontal;
-    public float moveAmount;
+    [HideInInspector]public float moveAmount;
 
+    [Header("Скорость вращения персонажа.")]
+    [Space(10)]
     public float smothinkRotation;
 
-    public Vector3 rotationDirection;
-    public Vector3 moveDirection;
-    
+    [HideInInspector]public Vector3 rotationDirection;
+    [HideInInspector]public Vector3 moveDirection;
+
+    [Header("Звуки ходьбы")]
+    private AudioSource walkSource;
+    [Space(10)]
+    public AudioClip[] walkClips;
+
+    private void Start() 
+    {
+        walkSource = gameObject.GetComponent<AudioSource>();
+    }
+
     public void MoveUpdate()
     {
         MoveAmount();
@@ -26,7 +38,6 @@ public class MoveCharacter : MonoBehaviour
         moveAmount = Mathf.Clamp01(Mathf.Abs(vertical) + Mathf.Abs(horizontal));
     }
     
-
     void RotationCharacter()
     {
         Vector3 moveDir = CameraTransform.forward * vertical;
@@ -47,5 +58,12 @@ public class MoveCharacter : MonoBehaviour
         transform.rotation = targetRot;
     }
 
-    
+    public void AudioSourceUpdate()
+    {
+        if(moveAmount > 0.2f)
+        {
+        walkSource.volume = PlayerPrefs.GetFloat("EffectSound");
+        walkSource.PlayOneShot(walkClips[Random.Range(0,walkClips.Length)]);
+        }
+    }
 }

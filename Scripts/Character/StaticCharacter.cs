@@ -11,6 +11,10 @@ public class StaticCharacter : MonoBehaviour
     [Space(20)]
     public ChangeLocal changeLocal;
 
+    [Header("Класс нажатия кнопок персонажа")]
+    [Space(20)]
+    public InputCharacter inputCharacter;
+
     [System.Serializable]
     public class ChangeLocal
     {
@@ -62,15 +66,21 @@ public class StaticCharacter : MonoBehaviour
     [Header("Текстовая строка субтитров(Заполнять внешне)")]
     [Space(20)]
     public string subtibleText;
+    [Header("Время для закрытия субтитров")]
+    [Space(20)]
     public float timeClearSubtibleText;
-
+    [Header("Секундомер")]
+    [Space(20)]
     public float secontTimer;
+
 
     void Update() {
 
         ScrinUpdate();
 
         SubtibleUpdate();
+
+        PauseWindowUpdate();
     }
 
     void ScrinUpdate()
@@ -164,6 +174,19 @@ public class StaticCharacter : MonoBehaviour
                 timeClearSubtibleText = 0;
                 secontTimer = 0;
             }
+        }
+    }
+
+
+    void PauseWindowUpdate()
+    {
+        if(inputCharacter.pauseID == 0)
+        {
+            canvas.pauseAction = false;
+        }
+        else if (inputCharacter.pauseID == 1)
+        {
+            canvas.pauseAction = true;
         }
     }
 }
