@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class StaticCharacter : MonoBehaviour
 {
@@ -73,6 +74,17 @@ public class StaticCharacter : MonoBehaviour
     [Space(20)]
     public float secontTimer;
 
+    [Header("Осмотр записок и изображений")]
+    [Space(10)]
+    public bool writeBoolAction;
+    [Header("Изоброжение самой записки")]
+    [Space(10)]
+    public Sprite spriteWrite;
+    [Header("Поле текста по поводу записки")]
+    [Space(10)]
+    public string textWriteng;
+
+    private int IdBattonWriteText;
 
     void Update() {
 
@@ -81,6 +93,8 @@ public class StaticCharacter : MonoBehaviour
         SubtibleUpdate();
 
         PauseWindowUpdate();
+
+        UpdateWindowForWriteText();
     }
 
     void ScrinUpdate()
@@ -177,7 +191,6 @@ public class StaticCharacter : MonoBehaviour
         }
     }
 
-
     void PauseWindowUpdate()
     {
         if(inputCharacter.pauseID == 0)
@@ -189,4 +202,61 @@ public class StaticCharacter : MonoBehaviour
             canvas.pauseAction = true;
         }
     }
+
+    void UpdateWindowForWriteText()
+    {
+        IdBattonWriteText = Mathf.Clamp(IdBattonWriteText,0,1);
+        if(writeBoolAction)
+        {
+            canvas.writeTextPlane.SetActive(true);
+            if(spriteWrite != null)
+            {
+                canvas.imageWrite.sprite = spriteWrite;
+                canvas.imageWrite.color = new Color(1f,1f,1f,1f);
+
+                if(textWriteng != null)
+                {
+                    canvas.battonOpenWriteText.SetActive(true);
+                    canvas.textForWriteWindow.text = textWriteng;
+                }
+                else 
+                {
+                    canvas.battonOpenWriteText.SetActive(false);
+                }
+            }
+            else 
+            {
+                canvas.imageWrite.color = new Color(0f,0f,0f,0f);
+            }
+        }
+        else 
+        {
+            canvas.imageWrite.sprite = null;
+            textWriteng = null;
+        }
+
+    }
+
+    public void ClosetWindowForWriteText()
+    {
+        spriteWrite = null;
+        canvas.writeTextPlane.SetActive(false);
+        writeBoolAction = false;
+    }
+
+    public void Open_Closet_WriteTextWindow()
+    {   
+        if(IdBattonWriteText == 0)
+        {
+            canvas.textWriteWindowInside.SetActive(true);
+            IdBattonWriteText += 1;
+        }
+        else 
+        {
+            canvas.textWriteWindowInside.SetActive(false);
+            IdBattonWriteText -= 1;
+        }
+    }
+
+
 }

@@ -24,5 +24,12 @@ public class AllComponentsCanvas : MonoBehaviour
     [Header("Джойстик игры с конваса.")]
     [Space(10)]
     public DynamicJoystick joystick;
-    
+
+    [Header("окно чтение записок")]
+    [Space(10)]
+    public GameObject writeTextPlane;  
+    public Image imageWrite; 
+    public GameObject textWriteWindowInside;
+    public GameObject battonOpenWriteText;
+    public TextMeshProUGUI textForWriteWindow; 
 }
