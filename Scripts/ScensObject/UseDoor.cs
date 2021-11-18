@@ -15,11 +15,20 @@ public class UseDoor : MonoBehaviour
     [Space(10)]
     public GameObject lastRoom;
 
+    [Header("Префам с подсветкой и текстом к объекту")]
+    [Space(10)]
+    public AllComponentsForTarget target;
+
+    [Header("Имя объекта")]
+    [Space(10)]
+    public string nameObject;
+
 
     //Компоненты для тригера необходимые для перемещения
     private bool stayInTrugger; // Переменная отслеживающая нахождения персонажа в тригере 
     private InputCharacter inputCharacter; //переменная принемающая на себя скрипт упровления персонажа
     private GameObject character;// игровой объект персонажа
+    private StaticCharacter staticCharacter;
 
     //Метод добавления персонажа в тригер и удаление его соответственно 
     private void OnTriggerEnter(Collider other) {
@@ -28,6 +37,7 @@ public class UseDoor : MonoBehaviour
             stayInTrugger = true;
             inputCharacter = other.gameObject.GetComponent<InputCharacter>();
             character = other.gameObject;
+            staticCharacter = other.gameObject.GetComponent<StaticCharacter>();
         }
     }
 
@@ -37,6 +47,7 @@ public class UseDoor : MonoBehaviour
             stayInTrugger = true;
             inputCharacter = other.gameObject.GetComponent<InputCharacter>();
             character = other.gameObject;
+            staticCharacter = other.gameObject.GetComponent<StaticCharacter>();
         }
     }
 
@@ -46,6 +57,7 @@ public class UseDoor : MonoBehaviour
             stayInTrugger = false;
             inputCharacter = null;
             character = null;
+            staticCharacter = null;
         }
     }
     
@@ -53,14 +65,36 @@ public class UseDoor : MonoBehaviour
     {
         if(stayInTrugger) //Проверка находиться ли персонаж в колайдере двери
         {
+
+            target.textPlane.text = nameObject;
+
             if(inputCharacter.actionEvent) // обработка нажатия на взаимодействие
             {
-                character.transform.position = point.transform.position; // перемещаем персонажа в новую точку
 
-                nextRoom.SetActive(true); // Делаем активную следующую комнату по перемещению персонажа
+                staticCharacter.changeLocal.changeLocations = true;
 
-                lastRoom.SetActive(false); // Делаем закрытую предыдущую комнату 
             }
+
+            else if(staticCharacter.changeLocal.typeColorChangeImage != 0)
+                {
+                    character.transform.position = point.transform.position; // перемещаем персонажа в новую точку
+
+                    nextRoom.SetActive(true); // Делаем активную следующую комнату по перемещению персонажа
+
+                    lastRoom.SetActive(false); // Делаем закрытую предыдущую комнату 
+
+                    stayInTrugger = false;
+
+                    inputCharacter = null;
+
+                    character = null;
+
+                    }
+        }
+
+        else 
+        {
+            target.textPlane.text = "";
         }
     }
 }

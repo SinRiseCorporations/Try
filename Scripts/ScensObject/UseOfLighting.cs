@@ -14,10 +14,17 @@ public class UseOfLighting : MonoBehaviour
     [Header("Проверка на совестимость карт")]
     [Space(10)]
     public bool debogCompatibility;
-    public bool useLight;
+    private bool useLight;
     private int openActive = 0;
     private float seconTimeOfOpen;
 
+    [Header("Префам с подсветкой и текстом к объекту")]
+    [Space(10)]
+    public AllComponentsForTarget target;
+
+    [Header("Имя объекта")]
+    [Space(10)]
+    public string nameObject;
 
     private bool stayInTrugger;
     private InputCharacter inputCharacter;
@@ -69,6 +76,13 @@ public class UseOfLighting : MonoBehaviour
             {
                 openActive += 1;
             }
+
+            target.textPlane.text = nameObject;
+        }
+
+        else if (!stayInTrugger)
+        {
+            target.textPlane.text = "";
         }
 
         if(openActive != 0)

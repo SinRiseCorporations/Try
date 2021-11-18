@@ -21,7 +21,7 @@ public class CameraConfigurations : MonoBehaviour
     [Space(10)]
     public Transform characterTransform;
     
-    void Update()
+    void FixedUpdate()
     {
         cameraHolder.position = Vector3.Slerp(cameraHolder.position , characterTransform.position,Time.deltaTime * setting.smothigCamera);
         
