@@ -115,8 +115,6 @@ public class StaticCharacter : MonoBehaviour
 
                 if( colorAlphaChangeLocal != 1f &&  changeLocal.typeColorChangeImage == 0 )
                 {
-                    
-                    Debug.Log("work");
                     changeLocal.color = canvas.changeLocalImage.color;
                     changeLocal.color.a += Time.deltaTime *  changeLocal.speedChange;
                     canvas.changeLocalImage.color =  changeLocal.color;
@@ -130,7 +128,6 @@ public class StaticCharacter : MonoBehaviour
                      changeLocal.secontTime += Time.deltaTime;
                     if( changeLocal.secontTime >  changeLocal.timeOfBack)
                     {
-                        Debug.Log("work_Back");
                          changeLocal.color = canvas.changeLocalImage.color;
                          changeLocal.color.a -= Time.deltaTime *  changeLocal.speedChange;
                         canvas.changeLocalImage.color =  changeLocal.color;
@@ -154,7 +151,6 @@ public class StaticCharacter : MonoBehaviour
         {
             blackScrinn.workBlack = true;
             if( colorAlphaChangeLocal != 1f){
-            Debug.Log("DuBlackScrin");
             blackScrinn.color = canvas.changeLocalImage.color;
             blackScrinn.color.a += Time.deltaTime *  blackScrinn.speedChange;
             canvas.changeLocalImage.color =  blackScrinn.color;
@@ -165,7 +161,6 @@ public class StaticCharacter : MonoBehaviour
         {
             blackScrinn.workBlack = false;
             if( colorAlphaChangeLocal != 0f){
-            Debug.Log("ClearBlackScrin");
             blackScrinn.color = canvas.changeLocalImage.color;
             blackScrinn.color.a -= Time.deltaTime *  blackScrinn.speedChange;
             canvas.changeLocalImage.color =  blackScrinn.color;

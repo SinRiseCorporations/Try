@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+[RequireComponent(typeof(AudioSource))]
 public class UseOfLighting : MonoBehaviour
 {
     [Header("Класс с помещёнными мешами освещения")]
@@ -29,6 +30,17 @@ public class UseOfLighting : MonoBehaviour
     private bool stayInTrugger;
     private InputCharacter inputCharacter;
 
+    [Header("Звук необходиммый воспроизвести при использовании")]
+    [Space(10)]
+    public AudioClip useClip;
+    private AudioSource audioSource;
+
+    [Header("Тип объкта")]
+    public bool plot;
+    public LogicPart logic;
+
+    public int playBefor = 0;
+
     private void OnTriggerEnter(Collider other) {
         if(other.tag == "Character")
         {
@@ -55,6 +67,8 @@ public class UseOfLighting : MonoBehaviour
 
     private void Start() {
 
+        audioSource = gameObject.GetComponent<AudioSource>();
+
         if(idWorkLight == 0)
         {
             lightType.roomWithLight.SetActive(false);
@@ -73,7 +87,13 @@ public class UseOfLighting : MonoBehaviour
 
         if(stayInTrugger){
             if(inputCharacter.actionEvent)
+
             {
+                if(useClip != null)
+                {
+                    audioSource.volume = PlayerPrefs.GetFloat("EffectSound");
+                    audioSource.PlayOneShot(useClip);
+                }
                 openActive += 1;
             }
 
@@ -90,10 +110,18 @@ public class UseOfLighting : MonoBehaviour
             seconTimeOfOpen += Time.deltaTime;
             if(idWorkLight == 0)
             {
+
+                LogicUpdate();
+
                 lightType.roomWithLight.SetActive(true);
 
                 if(debogCompatibility) lightType.roomWithOutLight.SetActive(false);
-                
+
+                if(useClip != null)
+                {
+
+                }
+
                 idWorkLight = 1;
 
                 if(seconTimeOfOpen < 0.3)
@@ -116,6 +144,23 @@ public class UseOfLighting : MonoBehaviour
                     seconTimeOfOpen = 0;
                 }
             }
+        }
+    }
+
+        void LogicUpdate()
+    {
+        if(plot)
+        {
+            if(playBefor == 0)
+            {
+                if(logic != null)
+                {
+                    logic.progressPart = logic.progressPart  + 1;
+                    logic.LogiChangeUpdate();
+                    playBefor = playBefor + 1;
+                }
+            }
+            
         }
     }
 }

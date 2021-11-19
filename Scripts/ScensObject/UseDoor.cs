@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+[RequireComponent(typeof(AudioSource))]
 public class UseDoor : MonoBehaviour
 {
     [Header("Точка для перемещения")]
@@ -22,6 +23,11 @@ public class UseDoor : MonoBehaviour
     [Header("Имя объекта")]
     [Space(10)]
     public string nameObject;
+
+    [Header("Звук необходиммый воспроизвести при использовании")]
+    [Space(10)]
+    public AudioClip useClip;
+    private AudioSource audioSource;
 
 
     //Компоненты для тригера необходимые для перемещения
@@ -60,7 +66,11 @@ public class UseDoor : MonoBehaviour
             staticCharacter = null;
         }
     }
-    
+
+    private void Start() {
+
+        audioSource = gameObject.GetComponent<AudioSource>();
+    }
     void Update()
     {
         if(stayInTrugger) //Проверка находиться ли персонаж в колайдере двери
@@ -72,11 +82,22 @@ public class UseDoor : MonoBehaviour
             {
 
                 staticCharacter.changeLocal.changeLocations = true;
+                
+                if(useClip != null)//проверка есть ли звуковая дорожка 
+                    {
+                        audioSource.volume = PlayerPrefs.GetFloat("EffectSound"); //Настройка уровня звука
+
+                        audioSource.PlayOneShot(useClip);//Воспроизведение звука
+
+                    }
 
             }
 
             else if(staticCharacter.changeLocal.typeColorChangeImage != 0)
                 {
+                    
+                    
+
                     character.transform.position = point.transform.position; // перемещаем персонажа в новую точку
 
                     nextRoom.SetActive(true); // Делаем активную следующую комнату по перемещению персонажа
