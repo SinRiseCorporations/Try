@@ -7,14 +7,6 @@ public class TalkObject : MonoBehaviour
     [Header("Переменная отвечающая за не воспрпоизведения скрипта повторно")]
     public int wasTalk = 0;
 
-    [Header("Текс который неообходимо персонажу сказать")]
-    [Space(10)]
-    public string texttalk;
-
-    [Header("Время которе будет висеть данный текст")]
-    [Space(10)]
-    public float time;
-
     [Header("Компонент для подписи объектов")]
     [Space(10)]
     public AllComponentsForTarget target;
@@ -27,11 +19,7 @@ public class TalkObject : MonoBehaviour
     public bool plot;
     public LogicPart logic;
 
-    [Header("Звук необходиммый воспроизвести")]
-    [Space(10)]
-    public AudioClip clip;
-
-    private AudioSource source;
+    public List<StaticCharacter.SubTitlesClass> talk = new List<StaticCharacter.SubTitlesClass>();
 
     private bool stay;
 
@@ -64,6 +52,9 @@ public class TalkObject : MonoBehaviour
         }
     }
     
+    private void Start() {
+        target.textPlane.text = "";
+    }
     
     void Update()
     {
@@ -77,16 +68,17 @@ public class TalkObject : MonoBehaviour
 
                     LogicUpdate();
 
-                    if(texttalk != null)
+                    if(talk.Count!=0)
                     {
-                        subTible.subtibleText = texttalk;
-                        subTible.timeClearSubtibleText = time;
-                        
-                        wasTalk = 1;
+                        Debug.Log("Work");
+                        for (int i =0; i < talk.Count;i++)
+                        {
+                            subTible.subTitles.Add(talk[i]);
+                            
+                            wasTalk = 1;
 
-                        SoundPlay();
-
-                        gameObject.SetActive(false);
+                            if(i == talk.Count) gameObject.SetActive(false);
+                        }
                     }
                 }
             }
@@ -104,17 +96,6 @@ public class TalkObject : MonoBehaviour
             {
                 logic.progressPart = logic.progressPart  + 1;
                 logic.LogiChangeUpdate();
-            }
-        }
-    }
-
-    void SoundPlay()
-    {
-        if(source!= null)
-        {
-            if(clip != null)
-            {
-                source.PlayOneShot(clip);
             }
         }
     }

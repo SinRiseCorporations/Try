@@ -7,22 +7,13 @@ public class TalkTrigger : MonoBehaviour
     [Header("Переменная отвечающая за не воспрпоизведения скрипта повторно")]
     public int wasTalk = 0;
 
-    [Header("Текс который неообходимо персонажу сказать")]
-    [Space(10)]
-    public string texttalk;
-
-    [Header("Время которе будет висеть данный текст")]
-    [Space(10)]
-    public float time;
-
-    [Header("Звук необходиммый воспроизвести")]
-    public AudioClip clip;
-
     [SerializeField]private AudioSource source;
 
     private bool stay;
 
     private StaticCharacter subTible;
+
+    public List<StaticCharacter.SubTitlesClass> talk = new List<StaticCharacter.SubTitlesClass>();
 
     private void OnTriggerEnter(Collider other) {
         if(other.tag == "Character")
@@ -53,29 +44,19 @@ public class TalkTrigger : MonoBehaviour
         {
             if(wasTalk == 0)
             {
-                SoundPlay();
-
-                if(texttalk != null)
+                if(talk.Count!=0)
                 {
-                    subTible.subtibleText = texttalk;
-                    subTible.timeClearSubtibleText = time;
-
+                    Debug.Log("Work");
+                    for (int i =0; i < talk.Count;i++)
+                    {
+                    subTible.subTitles.Add(talk[i]);
+                    
                     wasTalk = 1;
 
-                    gameObject.SetActive(false);
+                    if(i == talk.Count) gameObject.SetActive(false);
+                    }
                 }
 
-            }
-        }
-    }
-
-    void SoundPlay()
-    {
-        if(source!= null)
-        {
-            if(clip != null)
-            {
-                source.PlayOneShot(clip);
             }
         }
     }

@@ -64,12 +64,27 @@ public class StaticCharacter : MonoBehaviour
     [Space(20)]
     public float colorAlphaChangeLocal;
 
+    [Header("Звуковой компонент")]
+    [Space(10)]
+    public AudioSource source;
     [Header("Текстовая строка субтитров(Заполнять внешне)")]
     [Space(20)]
-    public string subtibleText;
-    [Header("Время для закрытия субтитров")]
-    [Space(20)]
-    public float timeClearSubtibleText;
+    public float secontForSubTitles;
+    public List<SubTitlesClass> subTitles = new List<SubTitlesClass>();
+
+    [System.Serializable]
+    public class SubTitlesClass
+    {
+        [Header("Текст который будет выводиться на субтитрову панель")]
+        public string subtibleText;
+        [Header("Время для закрытия субтитров")]
+        [Space(20)]
+        public float timeClearSubtibleText;
+        [Header("Звук необходимый воспроизвети")]
+        [Space(10)]
+        public AudioClip clip;
+
+    }
     [Header("Секундомер")]
     [Space(20)]
     public float secontTimer;
@@ -95,6 +110,7 @@ public class StaticCharacter : MonoBehaviour
         PauseWindowUpdate();
 
         UpdateWindowForWriteText();
+
     }
 
     void ScrinUpdate()
@@ -171,18 +187,40 @@ public class StaticCharacter : MonoBehaviour
 
     void SubtibleUpdate()
     {
-        canvas.textTalking.text = subtibleText;
 
-        if(subtibleText != null)
-        {
-            secontTimer += Time.deltaTime;
-            if(secontTimer > timeClearSubtibleText)
+        if(subTitles.Count != 0){
+            
+            if(subTitles[0].subtibleText != null || subTitles[0].clip != null)
             {
-                canvas.textTalking.text = null;
-                subtibleText = null;
-                timeClearSubtibleText = 0;
-                secontTimer = 0;
+                canvas.textTalking.text = subTitles[0].subtibleText;
+
+                SoundUpdateSubtable();
+
+                secontForSubTitles += Time.deltaTime;
+
+                if(secontForSubTitles > subTitles[0].timeClearSubtibleText)
+                {
+                    canvas.textTalking.text = null;
+                    subTitles[0].subtibleText = null;
+                    subTitles[0].timeClearSubtibleText = 0;
+                    secontForSubTitles = 0;
+
+                    subTitles.Remove(subTitles[0]);
+                }
             }
+        }
+    }
+
+    void SoundUpdateSubtable()
+    {
+        if(subTitles[0].clip != null)
+        {
+            if(source!=null)
+            {
+                source.PlayOneShot(subTitles[0].clip);
+                subTitles[0].clip = null;
+            }
+
         }
     }
 

@@ -87,7 +87,6 @@ public class UseOfLighting : MonoBehaviour
 
         if(stayInTrugger){
             if(inputCharacter.actionEvent)
-
             {
                 if(useClip != null)
                 {
@@ -95,6 +94,8 @@ public class UseOfLighting : MonoBehaviour
                     audioSource.PlayOneShot(useClip);
                 }
                 openActive += 1;
+
+                LogicUpdate();
             }
 
             target.textPlane.text = nameObject;
@@ -110,25 +111,16 @@ public class UseOfLighting : MonoBehaviour
             seconTimeOfOpen += Time.deltaTime;
             if(idWorkLight == 0)
             {
-
-                LogicUpdate();
-
                 lightType.roomWithLight.SetActive(true);
 
                 if(debogCompatibility) lightType.roomWithOutLight.SetActive(false);
 
-                if(useClip != null)
-                {
-
-                }
 
                 idWorkLight = 1;
 
-                if(seconTimeOfOpen < 0.3)
-                {
-                    openActive = 0;
-                    seconTimeOfOpen = 0;
-                }
+ 
+                openActive = 0;
+                seconTimeOfOpen = 0;
             }
 
             else if (idWorkLight == 1)
@@ -138,11 +130,8 @@ public class UseOfLighting : MonoBehaviour
 
                 idWorkLight = 0;
 
-                if(seconTimeOfOpen < 0.3)
-                {
-                    openActive = 0;
-                    seconTimeOfOpen = 0;
-                }
+                openActive = 0;
+                seconTimeOfOpen = 0;
             }
         }
     }
