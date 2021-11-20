@@ -1,9 +1,16 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class TalkObject : MonoBehaviour
 {
+    [Header("Конец эпизода.")]
+    public bool finishEpisode;
+    [Header("Номер эпизода.")]
+    [Space(5)]
+    public int numperEpisode;
+
     [Header("Переменная отвечающая за не воспрпоизведения скрипта повторно")]
     public int wasTalk = 0;
 
@@ -62,6 +69,16 @@ public class TalkObject : MonoBehaviour
         {   
             if(nameObject != null) target.textPlane.text = nameObject;
 
+            if(!finishEpisode) JustTolkObject();
+            if(finishEpisode) FinishEpisode();
+        }
+
+        else target.textPlane.text = "";
+
+    }
+
+    void JustTolkObject()
+    {
             if(wasTalk == 0)
             {
                 if (input.actionEvent){
@@ -82,10 +99,21 @@ public class TalkObject : MonoBehaviour
                     }
                 }
             }
-        }
+    }
 
-        else target.textPlane.text = "";
+    void FinishEpisode()
+    {
+        if(wasTalk == 0)
+            {
+                if (input.actionEvent){
+                    
+                    logic.LoadScens();
+                    
+                    PlayerPrefs.SetInt("ProgressGame",numperEpisode);
 
+                    SceneManager.LoadScene(0);
+                }
+            }
     }
 
     void LogicUpdate()

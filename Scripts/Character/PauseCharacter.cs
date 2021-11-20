@@ -46,6 +46,7 @@ public class PauseCharacter : MonoBehaviour
     public void BackInMenuBatton()
     {
         loadWindow.SetActive(true);
+        Time.timeScale = 1;
         SceneManager.LoadScene(0);
     }
 

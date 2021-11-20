@@ -10,6 +10,11 @@ public class LogicPart : MonoBehaviour
     [Header("Этапы которые будут открывате с прогрессом игры")]
     public SceenObject[] sceenObject;
 
+    [Header("Компоненты загрузки.")]
+    public GameObject character;
+    public GameObject loadCanvas;
+
+
     [System.Serializable]
     public class SceenObject
     {
@@ -18,6 +23,10 @@ public class LogicPart : MonoBehaviour
     }
 
     void Awake() {
+
+        character.SetActive(true);
+        loadCanvas.SetActive(false);
+
 
         for(int i = 0 ; i < sceenObject.Length; i ++)
         {
@@ -49,5 +58,11 @@ public class LogicPart : MonoBehaviour
         {
             sceenObject[progressPart].Object[i].SetActive(true);
         }
+    }
+
+    public void LoadScens()
+    {
+        character.SetActive(false);
+        loadCanvas.SetActive(true);
     }
 }

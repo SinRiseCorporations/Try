@@ -12,11 +12,12 @@ public class AllComponentsCanvas : MonoBehaviour
 
     [Header("Текст субтитров.")]
     [Space(10)]
-    public TextMeshProUGUI textTalking;
+    public TextMeshProUGUI subTitles;
+    public GameObject subObject;
 
     [Header("Окно паузы.")]
     [Space(10)]
-    public GameObject PauseWindow;
+    //public GameObject PauseWindow;
     [Header("Переменная активности меню паузы.")]
     [Space(10)]
     public bool pauseAction;

@@ -95,8 +95,6 @@ public class UseDoor : MonoBehaviour
 
             else if(staticCharacter.changeLocal.typeColorChangeImage != 0)
                 {
-                    
-                    
 
                     character.transform.position = point.transform.position; // перемещаем персонажа в новую точку
 

@@ -15,28 +15,28 @@ public class Translator : MonoBehaviour
     {
         #region Английский
         {
-        "Single player", //0          
-        "Multiplayer", //1
-        "Settings", //2
-        "Exit", //3
-        "Back", //4
-        "Language", //5
-        "Graphics", //6
-        "Sounds", //7
-        "Controll",  //8
-        "Back", // 9
-        "On development stage", //10
-        "English", //11
-        "System sounds",//12
-        "Screen resolution", //13
-        "Quality",//14
-        "Texture quality",//15
-        "Smoothing",//16
-        "Shadow quality",//17
-        "Distance of shadows",//18
-        "Low",//19
-        "Midlle",//20
-        "High",//21
+        "Continue", //0
+        "New Game",//1
+        "Settings",//2
+        "Exit",//3
+        "Back",//4
+        "Play",//5
+        "There is a game save, sure you want to start over.",//6
+        "Audio settings",//7
+        "Language and subtitles",//8
+        "The development list", //9
+        "A developer",//10
+        "Sound system",//11
+        "Sound of music",//12
+        "Sound effects",//13
+        "Language", //14
+        "English", //15
+        "Loading",//16
+        "Exit to the menu",//17
+        "Start from the beginning", //18
+        "Subtitles", //19
+        "Yes",//20
+        "No",//21+
         "Very hige",//22
         "Disablet",//23
         "2X",//24
@@ -56,28 +56,28 @@ public class Translator : MonoBehaviour
 
         #region Русский
         {
-        "Одиночная игра",   //0        
-        "Кооператив",//1
+        "Продолжить",   //0        
+        "Новая игра",//1
         "Настройки",//2
         "Выход",//3
         "Назад",//4
-        "Язык",//5
-        "Графика",//6
-        "Звук",//7
-        "Управление",//8
-        "Назад", //9
-        "В процессе разработки",//10
-        "Русский",//11
-        "Системные звуки",//12
-        "Разрешение экрана",//13
-        "Качество", //14
-        "Качество текстур", //15
-        "Сглаживание",//16
-        "Качество теней",//17
-        "Дальность теней", //18
-        "Низкое", //19
-        "Среднее",//20
-        "Высокое",//21
+        "Играть",//5
+        "Есть сохранение игры, уверены что хотите начать сначала.",//6
+        "Настройки звука",//7
+        "Язык и субтитры",//8
+        "Список разработчиков", //9
+        "Помощь разработчиков",//10
+        "Звук системный",//11
+        "Звук музыки",//12
+        "Звук эффектов",//13
+        "Язык", //14
+        "Русский", //15 Переведено ..
+        "Загрузка",//16
+        "Выйти в главное меню",//17
+        "Начать с начала", //18 +
+        "Субтитры", //19
+        "Да",//20
+        "Нет",//21+
         "Ультра",//22
         "Отсутствует",//23
         "2X",//24
@@ -92,8 +92,9 @@ public class Translator : MonoBehaviour
         "Глава 5", //33
         "Глава 6", //34
         "Играть",//35
-        }
+        },
         #endregion
+
     };
     #endregion
 

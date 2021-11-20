@@ -5,8 +5,14 @@ using UnityEngine.UI;
 
 public class StaticCharacter : MonoBehaviour
 {
+    #region Компоненты конваса
+
     [Header("Компонент канвас с элементами меню(заполнять)")]
     public AllComponentsCanvas canvas;
+
+    #endregion
+
+    #region Компоненты смены локации
 
     [Header("Класс смены локации)")]
     [Space(20)]
@@ -39,7 +45,11 @@ public class StaticCharacter : MonoBehaviour
         [HideInInspector]
         public bool workChange;
     }
+
+    #endregion
     
+    #region Компоненты черного экрана 
+
     [Header("Настройка черного экрана")]
     [Space(20)]
     public BlackScrinn blackScrinn;
@@ -60,6 +70,8 @@ public class StaticCharacter : MonoBehaviour
 
     }
 
+    #endregion
+
     [Header("Переменная альфа канала(не заполнять)")]
     [Space(20)]
     public float colorAlphaChangeLocal;
@@ -67,6 +79,7 @@ public class StaticCharacter : MonoBehaviour
     [Header("Звуковой компонент")]
     [Space(10)]
     public AudioSource source;
+
     [Header("Текстовая строка субтитров(Заполнять внешне)")]
     [Space(20)]
     public float secontForSubTitles;
@@ -92,15 +105,21 @@ public class StaticCharacter : MonoBehaviour
     [Header("Осмотр записок и изображений")]
     [Space(10)]
     public bool writeBoolAction;
+
     [Header("Изоброжение самой записки")]
     [Space(10)]
     public Sprite spriteWrite;
+
     [Header("Поле текста по поводу записки")]
     [Space(10)]
     public string textWriteng;
 
     private int IdBattonWriteText;
 
+    private void Start() {
+        
+        SubTitleAction();
+    }
     void Update() {
 
         ScrinUpdate();
@@ -187,28 +206,35 @@ public class StaticCharacter : MonoBehaviour
 
     void SubtibleUpdate()
     {
-
-        if(subTitles.Count != 0){
-            
-            if(subTitles[0].subtibleText != null || subTitles[0].clip != null)
-            {
-                canvas.textTalking.text = subTitles[0].subtibleText;
-
-                SoundUpdateSubtable();
-
-                secontForSubTitles += Time.deltaTime;
-
-                if(secontForSubTitles > subTitles[0].timeClearSubtibleText)
+        {
+            if(subTitles.Count != 0){
+                
+                if(subTitles[0].subtibleText != null || subTitles[0].clip != null)
                 {
-                    canvas.textTalking.text = null;
-                    subTitles[0].subtibleText = null;
-                    subTitles[0].timeClearSubtibleText = 0;
-                    secontForSubTitles = 0;
+                    canvas.subTitles.text = subTitles[0].subtibleText;
 
-                    subTitles.Remove(subTitles[0]);
+                    SoundUpdateSubtable();
+
+                    secontForSubTitles += Time.deltaTime;
+
+                    if(secontForSubTitles > subTitles[0].timeClearSubtibleText)
+                    {
+                        canvas.subTitles.text = null;
+                        subTitles[0].subtibleText = null;
+                        subTitles[0].timeClearSubtibleText = 0;
+                        secontForSubTitles = 0;
+
+                        subTitles.Remove(subTitles[0]);
+                    }
                 }
             }
         }
+    }
+
+    public void SubTitleAction()
+    {
+        if(PlayerPrefs.GetInt("SubTitles") == 0) canvas.subObject.SetActive(false);
+        else if(PlayerPrefs.GetInt("SubTitles") == 1) canvas.subObject.SetActive(true);
     }
 
     void SoundUpdateSubtable()

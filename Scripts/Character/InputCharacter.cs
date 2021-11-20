@@ -36,7 +36,15 @@ public class InputCharacter : MonoBehaviour
 
     public void FixedUpdate()
     {
-        if(!setting.android) PCFixedUpdate();
+        if(!setting.android)
+        {
+             PCFixedUpdate();
+            if(actionEvent)
+            {
+                Debug.Log("work");
+                actionEvent = false;
+            }
+        }
         else InputMobileFixedUpdate();
     }
 
@@ -66,7 +74,7 @@ public class InputCharacter : MonoBehaviour
             actionEvent = true;
             Debug.Log("EventWork");
         }
-        else actionEvent = false;
+        //else actionEvent = false;
     }
 
     void PauseModePC()
